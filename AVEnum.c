@@ -38,4 +38,5 @@ int main(void) {
 	AVType myAV;
 	enumerateAV(&myAV);
 	printAVType(&myAV);
+	return EXIT_SUCCESS;
 }
