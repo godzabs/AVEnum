@@ -2,7 +2,7 @@
 #include<Windows.h>
 #include<tlhelp32.h>
 
-typedef enum AVType {DEFENDER, NONE} AVType;
+typedef enum AVType {DEFENDER, AVIRA, NONE} AVType;
 
 //hash ExeName's to switch/case process name
 //using djb2 hash, hash *33 + c(int val of char)
@@ -22,6 +22,10 @@ void printAVType(AVType *av) {
 	case DEFENDER:
 		printf("[+] Found Windows Defender on the system!\n");
 		break;
+	
+	case AVIRA:
+		printf("[+] Found Avira running on the system!\n");
+		break;
 	default:
 		printf("[-] Somehow no anti-virus is running on the system\n");
 		break;
@@ -40,9 +44,12 @@ void enumerateAV(AVType *def) {
 
 		switch (hashVal) {
 			case 112412172: //MsMpEng.exe = Defender
-				//printf("[+]Defender was found , pid = %d\n",proc.th32ProcessID);
 				*def = DEFENDER;
 				break;
+			case 4146825939: //Avira.Spotlight.Service.exe = Avira
+				*def = AVIRA;
+				break;
+				
 			default:
 				break;
 		}
@@ -57,5 +64,7 @@ int main(void) {
 	AVType myAV;
 	enumerateAV(&myAV);
 	printAVType(&myAV);
+	getchar();
+	getchar();
 	return EXIT_SUCCESS;
 }
