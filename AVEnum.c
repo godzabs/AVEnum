@@ -4,6 +4,19 @@
 
 typedef enum AVType {DEFENDER, NONE} AVType;
 
+//hash ExeName's to switch/case process name
+//using djb2 hash, hash *33 + c(int val of char)
+unsigned long hash(wchar_t* str) {
+	unsigned long hash = 5381;
+	int c;
+	while (c = *str++) {
+		hash = ((hash << 5) + hash) + c;
+
+	}
+	return hash;
+}
+
+
 void printAVType(AVType *av) {
 	switch (*av) {
 	case DEFENDER:
@@ -21,14 +34,20 @@ void enumerateAV(AVType *def) {
 	PROCESSENTRY32 proc;
 	proc.dwSize = sizeof(proc);
 	Process32First(hProc, &proc);
-
+	unsigned long hashVal = 0;
 	do {
-		
-		if (wcscmp(proc.szExeFile, L"MsMpEng.exe") == 0) {
-			*def = DEFENDER;
+		hashVal = hash(proc.szExeFile);
+
+		switch (hashVal) {
+			case 112412172: //MsMpEng.exe = Defender
+				//printf("[+]Defender was found , pid = %d\n",proc.th32ProcessID);
+				*def = DEFENDER;
+				break;
+			default:
+				break;
 		}
 
-
+		
 	} while (Process32Next(hProc, &proc));
 
 	CloseHandle(hProc);
