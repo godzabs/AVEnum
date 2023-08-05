@@ -1,8 +1,12 @@
+/*
+Basic program that enumerates A/V process currently running on the system
+For now it prints A/V names, but will add functionality that will quit if any A/V is detected
+*/
 #include<stdio.h>
 #include<Windows.h>
 #include<tlhelp32.h>
 
-typedef enum AVType {DEFENDER, AVIRA, MCAFEE, NONE} AVType;
+typedef enum AVType {DEFENDER, AVIRA, MCAFEE, KASPERSKY, NONE} AVType;
 
 //hash ExeName's to switch/case process name
 //using djb2 hash, hash *33 + c(int val of char)
@@ -27,6 +31,9 @@ void printAVType(AVType *av) {
 		break;
 	case MCAFEE:
 		printf("[+] Found McAfee running on the system!\n");
+		break;
+	case KASPERSKY:
+		printf("[+] Found Kaspersky running on the system!\n");
 		break;
 	default:
 		printf("[-] Somehow no anti-virus is running on the system\n");
@@ -54,10 +61,12 @@ void enumerateAV(AVType *def) {
 			case 3201222415: //masvc.exe = McAfee user agent
 				*def = MCAFEE;
 				break;
+			case 1238830108: //avp.exe = Kaspersky anti virus
+				*def = KASPERSKY;
+				break;
 			default:
 				break;
 		}
-
 		
 	} while (Process32Next(hProc, &proc));
 
