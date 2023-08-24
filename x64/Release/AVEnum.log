@@ -1,7 +1,8 @@
 ﻿  AVEnum.c
+D:\AVEnum\AVEnum\AVEnum.c(150,44): warning C4133: 'function': incompatible types - from 'OSVERSIONINFOEXW *' to 'LPOSVERSIONINFOW'
   Generating code
-  3 of 14 functions (21.4%) were compiled, the rest were copied from previous compilation.
+  4 of 14 functions (28.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AVEnum.vcxproj -> D:\AVEnum\x64\Release\AVEnum.exe

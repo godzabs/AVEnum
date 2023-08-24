@@ -144,7 +144,19 @@ void enumerateDefenderClientVer(SysInfo *d) {
 }
 
 void getWindowsVersion(SysInfo *p) {
-	//to do....
+	OSVERSIONINFOEXW myOS;
+	myOS.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+	//ZeroMemory(&myOS, sizeof(OSVERSIONINFOEX));
+	if ((GetVersionEx((OSVERSIONINFOEX *)&myOS)) !=0 ) {
+		p->majorVersion = myOS.dwMajorVersion;
+		p->minorVersion = myOS.dwMinorVersion;
+		p->buildNumber = myOS.dwBuildNumber;
+		p->revisionNumber = myOS.wServicePackMajor;
+		
+	}
+	else {
+		printf("GetVersionExW() failed!, GetLastError() = %d \n", GetLastError());
+	}
 }
 
 //hash ExeName's to switch/case process name
