@@ -1,0 +1,3 @@
+﻿  AVEnum.c
+D:\AVEnum\AVEnum\AVEnum.c(150,45): warning C4133: 'function': incompatible types - from 'OSVERSIONINFOEXW *' to 'LPOSVERSIONINFOW'
+  AVEnum.vcxproj -> D:\AVEnum\x64\Debug\AVEnum.exe
