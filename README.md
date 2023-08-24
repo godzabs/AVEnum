@@ -6,4 +6,6 @@
 
 ✔️ Avaria 
 
-❓ McAfee - In-progress
+✔️ McAfee - Added but not tested
+
+✔️ Kaspersky - Added but not tested
